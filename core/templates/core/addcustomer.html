@@ -1,0 +1,23 @@
+{%  extends 'core/base.html' %}
+
+{% block content %}
+
+
+
+<br>
+
+<div class="row">
+    <div class="col-sm-8">
+        <h1 class="alert alert-info">Add Customer</h1>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type="submit" class="btn btn-success" value="Submit">
+            <a href="{% url 'home' %}" class="btn btn-info">Home</a>
+        </form>
+    </div>
+</div>
+
+
+
+{% endblock %}

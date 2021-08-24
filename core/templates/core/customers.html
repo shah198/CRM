@@ -1,0 +1,43 @@
+{%  extends 'core/base.html' %}
+
+{% block content %}
+
+    <br>
+    <h1>Customers</h1>
+
+      <br>
+
+      <a class="btn btn-small btn-primary" href="{% url 'addcustomer' %}">Add New Customer</a>
+
+      <br>
+      <br>
+      <table class="table table-striped table-hover table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Email</th>
+            <th scope="col">Alter</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for Customer in customers %}
+          <tr>
+            <th scope="row">{{Customer.id}}</th>
+            <td>{{ Customer.name }}</td>
+            <td>{{ Customer.phone }}</td>
+            <td>{{ Customer.email }}</td>
+            <td><a href="{% url 'updatecust' Customer.id %}" class="btn btn-warning btn-sm">Edit</a></td>
+                <td>
+                    <form action="{% url 'delcust' Customer.id %}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="Delete" class="btn btn-sm btn-danger">
+                    </form>
+                </td>
+          {%endfor%}
+        </tbody>
+      </table>
+
+{% endblock %}

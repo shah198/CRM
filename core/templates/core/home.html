@@ -1,0 +1,70 @@
+{%  extends 'core/base.html' %}
+
+{% block content %}
+
+    <br>
+    <h1>Home</h1>
+
+    <br>
+
+    <h4>Orders</h4>
+
+    <br>
+
+    <div class="row">
+        <div class="col-sm-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Processing</h5>
+              <p class="card-text">{{ processing }} Orders</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">In Transit</h5>
+              <p class="card-text">{{ intransit }} Orders</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Delivered</h5>
+                <p class="card-text">{{ delivered }} Orders</p>
+              </div>
+            </div>
+          </div>
+      </div>
+
+      <br>
+
+      <table class="table table-striped table-hover table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Products</th>
+            <th scope="col">Status</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+            {%for order in orders%}
+          <tr>
+            <th scope="row">{{order.id}}</th>
+            <td>{{ order.Customer }}</td>
+            <td>{{ order.Product.all | join:", " }}</td>
+            <td>{{ order.status }}</td>
+                <td>
+                    <form action="{% url 'delord' order.id %}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="Delete" class="btn btn-sm btn-danger">
+                    </form>
+                </td>
+          {%endfor%}
+        </tbody>
+      </table>
+
+{% endblock %}
